@@ -1,0 +1,71 @@
+/* frontend/src/pages/LikedArtworksPage.css */
+
+.liked-artworks-page {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.liked-artworks-page h2 {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.liked-artworks-page .error-message,
+.liked-artworks-page .loading-message,
+.liked-artworks-page p {
+  text-align: center;
+  color: #c0392b;
+  font-size: 1.2rem;
+}
+
+.liked-artworks-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
+  justify-content: center;
+}
+
+/* Reusing the card styles from AllArtworksPage for consistency */
+.artwork-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease-in-out;
+  text-align: center;
+  background-color: #fff;
+}
+
+.artwork-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.artwork-card-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.artwork-image {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  display: block;
+}
+
+.artwork-details {
+  padding: 1rem;
+}
+
+.artwork-details h3 {
+  font-size: 1.2rem;
+  margin: 0 0 0.5rem;
+  color: #333;
+}
+
+.artwork-details .artwork-price {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #2c3e50;
+}

@@ -1,0 +1,373 @@
+/* frontend/src/components/Layout/Header.css */
+.main-header {
+    background-color: #0D1A44; /* Dark blue background */
+    padding: 15px 40px; /* Padding on top/bottom and left/right */
+    display: flex;
+    justify-content: space-between; /* Pushes logo to left, links/buttons to right */
+    align-items: center;
+    color: white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+
+    /* --- FOR FIXED HEADER POSITIONING --- */
+    position: fixed; /* Stays in place when scrolling */
+    top: 0;          /* Aligns to the very top of the screen */
+    left: 0;         /* Aligns to the very left of the screen */
+    width: 100%;     /* Takes up the full width of the screen */
+    z-index: 1000;   /* Ensures it stays on top of other content */
+    box-sizing: border-box; /* Crucial: includes padding in the 100% width */
+    /* ------------------------------------ */
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Space between logo image and text */
+}
+
+.logo img {
+    height: 35px; /* Adjust logo size */
+    width: auto;
+}
+
+.logo span {
+    font-size: 1.8em;
+    font-weight: bold;
+    color: #f8dc09; /* Yellow color for "Artniva" text */
+}
+
+.logo a {
+    text-decoration: none;
+    color: inherit; /* Inherit color from parent */
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.nav-links ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 30px; /* Space between navigation links */
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: white;
+    font-size: 1.1em;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: #f8dc09; /* Yellow on hover */
+}
+
+.icon-buttons {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Space between icon buttons */
+}
+
+.icon-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.4em;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.icon-btn:hover {
+    color: #f8dc09;
+}
+
+.sign-in-btn {
+    background-color: #f8dc09;
+    color: #0D1A44;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.sign-in-btn:hover {
+    background-color: #02228b;
+}
+
+/* Ensure Font Awesome icons are styled (if you included the CDN in public/index.html) */
+
+
+/* Media query for smaller screens - adjust as needed */
+@media (max-width: 768px) {
+    .main-header {
+        flex-wrap: wrap; /* Allow items to wrap to next line */
+        justify-content: center; /* Center items when wrapped */
+        padding: 10px 20px; /* Reduce padding on small screens */
+    }
+
+    .nav-links ul {
+        flex-basis: 100%; /* Make nav links take full width */
+        justify-content: center; /* Center links */
+        margin-top: 10px;
+    }
+
+    .icon-buttons {
+        margin-top: 10px;
+    }
+}
+
+/* frontend/src/components/Layout/Header.css */
+
+/* Existing Header styles (copy your current ones, they are fine) */
+.main-header {
+    background-color: #0D1A44;
+    padding: 15px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    box-sizing: border-box;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo img {
+    height: 35px;
+    width: auto;
+}
+
+.logo span {
+    font-size: 1.8em;
+    font-weight: bold;
+    color: #f8dc09;
+}
+
+.logo a {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.nav-links ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 30px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: white;
+    font-size: 1.1em;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: #f8dc09;
+}
+
+.icon-buttons {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.icon-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.4em;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.icon-btn:hover {
+    color: #f8dc09;
+}
+
+.sign-in-btn {
+    background-color: #f8dc09;
+    color: #0D1A44;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.sign-in-btn:hover {
+    background-color: #02228b;
+}
+
+/* --- NEW: Styles for inline search bar --- */
+.search-container {
+    display: flex; /* Allows search input and icon button to sit side-by-side */
+    align-items: center;
+    position: relative; /* For potential positioning of elements within */
+}
+
+.search-form-inline {
+    display: flex;
+    align-items: center;
+    background-color: white; /* White background for the input */
+    border-radius: 20px; /* Rounded corners */
+    overflow: hidden; /* Ensures content stays within rounded corners */
+    height: 38px; /* Match button height for alignment */
+    /* Adjust width to make it appear/disappear smoothly */
+    width: 0; /* Starts hidden */
+    transition: width 0.3s ease-in-out, padding 0.3s ease-in-out;
+    padding: 0; /* No padding when hidden */
+    margin-right: -38px; /* Pulls it back to hide the button part initially */
+    opacity: 0; /* Start invisible */
+}
+
+/* When showSearchBar is true, this class will be applied, expanding the search bar */
+.search-container .search-form-inline {
+    width: 250px; /* Desired expanded width */
+    padding: 0 10px; /* Padding inside the search bar */
+    margin-right: 10px; /* Space between search bar and next icon */
+    opacity: 1; /* Fully visible */
+}
+
+
+.search-form-inline input {
+    flex-grow: 1;
+    border: none;
+    outline: none;
+    padding: 5px 0; /* Adjust padding as needed */
+    font-size: 1em;
+    color: #333; /* Text color */
+    background: transparent; /* No background */
+}
+
+.search-submit-btn {
+    background: none;
+    border: none;
+    color: #0D1A44; /* Dark blue icon color for contrast on white background */
+    font-size: 1.2em;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.search-submit-btn:hover {
+    color: #007bff; /* Hover color for the search button */
+}
+
+/* Hide the search toggle button when the search bar is open */
+.search-container .search-toggle-btn.hide {
+    display: none;
+}
+
+/* Small adjustments to existing icon-btn for the search toggle */
+.search-toggle-btn {
+    font-size: 1.6em; /* Make search icon slightly larger for better clickability */
+}
+
+
+/* Media query for smaller screens - adjust as needed */
+@media (max-width: 768px) {
+    .main-header {
+        flex-wrap: wrap;
+        justify-content: center;
+        padding: 10px 20px;
+    }
+
+    .nav-links ul {
+        flex-basis: 100%;
+        justify-content: center;
+        margin-top: 10px;
+    }
+
+    .icon-buttons {
+        margin-top: 10px;
+    }
+
+    /* Adjust inline search bar for smaller screens */
+    .search-container .search-form-inline {
+        width: 180px; /* Smaller width on small screens */
+    }
+}
+/* frontend/src/components/Header/Header.css */
+
+/* ... (your existing header styles) ... */
+
+.shopping-cart-icon {
+    position: relative;
+    display: inline-block; /* To correctly position the count span */
+}
+
+.shopping-cart-icon .cart-count {
+    position: absolute;
+    top: -8px; /* Adjust as needed */
+    right: -8px; /* Adjust as needed */
+    background-color: red; /* Or your brand color */
+    color: white;
+    border-radius: 50%; /* Makes it circular */
+    padding: 2px 6px; /* Adjust padding for size */
+    font-size: 0.75rem; /* Smaller font size */
+    line-height: 1; /* Ensures text stays within padding */
+    min-width: 18px; /* Ensures a minimum width for single digits */
+    text-align: center;
+}
+
+/* Add these styles to your Header.css file */
+
+.shopping-dropdown-link {
+  position: relative;
+  /* Make the dropdown menu position relative to this list item */
+}
+
+.shopping-dropdown-link span {
+  cursor: pointer;
+  /* Make the "Shopping" text clickable */
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%; /* Position the dropdown right below the link */
+  left: 0;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  background-color: #212529; /* Match your header background color */
+  border: 1px solid #495057;
+  min-width: 150px;
+  z-index: 1000;
+  display: block; /* The state will handle hiding/showing */
+}
+
+.dropdown-menu li {
+  padding: 0; /* Remove default list padding */
+}
+
+.dropdown-menu li a {
+  display: block; /* Make the entire item clickable */
+  padding: 10px 15px;
+  text-decoration: none;
+  color: #fff;
+  transition: background-color 0.2s ease;
+}
+
+.dropdown-menu li a:hover {
+  background-color: #343a40; /* Darker hover effect */
+}

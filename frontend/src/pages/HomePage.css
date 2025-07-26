@@ -1,0 +1,151 @@
+/* frontend/src/pages/HomePage.css */
+
+.home-page {
+    width: 100%;
+    /* No flex/grid here directly, as Layout.jsx's <main> handles the content area */
+}
+
+/* New Hero Section Styling */
+.new-hero-section {
+    background-color: #fff; /* White background for the hero section */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 50px 40px;
+    gap: 50px; /* Space between left content and right image */
+    flex-wrap: wrap; /* Allows items to wrap on smaller screens */
+    min-height: 600px; /* Ensure a minimum height for the section */
+    position: relative; /* Needed for absolute positioning of anime-character */
+    overflow: hidden; /* Hide anything that overflows, especially from absolute positioning */
+}
+
+.hero-left-content {
+    flex: 1; /* Allows it to grow and shrink */
+    min-width: 300px; /* Minimum width before wrapping */
+    max-width: 500px; /* Max width to prevent it from getting too wide */
+    text-align: left;
+    color: #f8dc09; /* Dark blue text color */
+    position: relative; /* Needed for absolute positioning of anime-character inside it */
+    z-index: 1; 
+    margin-top: 100px;/* Ensure it's above other elements if needed */
+}
+
+.hero-left-content h1 {
+    font-size: 3em; /* Large heading */
+    margin-top: -460px;
+    line-height: 1.2;
+}
+
+.hero-left-content p {
+    font-size: 1.2em;
+    margin-bottom: 30px;
+    line-height: 1.5;
+}
+
+.hero-buttons {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 50px; /* Space below buttons before the character */
+}
+
+.hero-buttons .btn {
+    background-color: #ff6666; /* Yellow button background */
+    color: #ffffff; /* Dark blue button text */
+    padding: 12px 25px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.hero-buttons .btn:hover {
+    background-color: #f11c40; /* Slightly darker yellow on hover */
+}
+
+.hero-buttons span {
+    font-weight: bold;
+    color: #f6f6f6; /* Dark blue for 'or' text */
+    font-size: 1.1em;
+}
+
+.anime-character {
+    position: absolute; /* Position relative to .hero-left-content */
+    bottom: -120px; /* Move it down from the bottom of its parent */
+    left: 0;
+    width: 250px; /* Adjust size as needed */
+    height: auto;
+    z-index: 2;
+    margin-top: 200px; /* Ensure it's above other elements */
+}
+
+.hero-right-image {
+    flex: 2; /* Allows it to grow and shrink */
+    min-width: 400px; /* Minimum width before wrapping */
+    display: flex;
+    justify-content: center;
+    align-items: bottom;
+    z-index: 1;
+}
+.dashboard-btn:hover {
+    background-color: hsl(82, 88%, 53%); /* Darker shade on hover */
+    transform: translateY(-2px); /* Slight lift effect */
+}
+.hero-right-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2); /* Soft shadow for the painting */
+     margin-top: 50px;
+}
+
+/* Copyright Section (This will eventually be moved to a Footer component) */
+.copyright-section {
+    background-color: #ff6666; /* Dark blue background */
+    color: white;
+    padding: 20px;
+    text-align: center;
+    width: 100%;
+    box-sizing: border-box; /* Include padding in element's total width/height */
+    margin-top: 50px; /* Add some space above the footer */
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 1000px) {
+    .new-hero-section {
+        flex-direction: column; /* Stack items vertically */
+        text-align: top;
+        gap: 30px;
+        padding: 30px 20px;
+    }
+
+    .hero-left-content {
+        max-width: 100%; /* Allow it to take full width */
+        text-align: center;
+    }
+
+    .hero-buttons {
+        justify-content: center; /* Center buttons when stacked */
+    }
+
+    .hero-left-content h1 {
+        font-size: 2.2em; /* Smaller font on small screens */
+    }
+
+    .hero-left-content p {
+        font-size: 1em;
+    }
+
+    .hero-right-image {
+        min-width: unset; /* Remove min-width constraint */
+        width: 100%; /* Take full width */
+    }
+
+    .anime-character {
+        position: static; /* Remove absolute positioning */
+        margin-top: 20px; /* Add margin instead of bottom positioning */
+        transform: none;
+    }
+}

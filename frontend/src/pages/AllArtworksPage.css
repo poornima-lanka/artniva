@@ -1,0 +1,254 @@
+/* frontend/src/pages/AllArtworksPage.css */
+.all-artworks-page {
+  padding: 40px 20px; /* General side padding */
+  text-align: center;
+  min-height: calc(100vh - 150px); /* Adjust for header/footer */
+  background-color: #f9f9f9;
+  color: #333;
+  padding-top: 100px; /* Account for fixed header's height */
+}
+
+.all-artworks-page h2 {
+  font-size: 2.5em;
+  margin-bottom: 20px;
+  color: #0D1A44;
+}
+
+/* Filter Buttons Styling */
+.filter-buttons {
+  margin-bottom: 40px;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+  max-width: 1500px; /* Increased width for filter buttons */
+  margin: 0 auto 40px auto; /* Centers the button container */
+  padding: 0 20px; /* Add some padding inside the button container */
+}
+
+.filter-btn {
+  background-color: #eee;
+  color: #0D1A44;
+  border: 1px solid #ccc;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1em;
+  font-weight: 500;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.filter-btn:hover {
+  background-color: #ddd;
+}
+
+.filter-btn.active {
+  background-color: #0D1A44;
+  color: white;
+  border-color: #0D1A44;
+}
+
+/* Artworks Grid Styling */
+.artworks-grid {
+  display: grid;
+  /* Adjust minmax to control card size. 280px is minimum, 1fr shares space. */
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px; /* Space between grid items */
+  /* Make grid wider, similar to homepage hero section */
+  max-width: 1500px; /* <--- Increased width for the grid */
+  margin: 0 auto; /* Centers the grid */
+  padding: 0 20px; /* Add some padding on the sides of the grid itself */
+}
+
+.artwork-card {
+  background-color: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Slightly stronger shadow */
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.artwork-card:hover {
+  transform: translateY(-7px); /* Lift card more on hover */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* Stronger shadow on hover */
+}
+
+.artwork-image {
+  max-width: 100%;
+  height: 200px; /* Fixed height for consistency */
+  object-fit: cover; /* Ensures image covers area without distortion */
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+.artwork-details {
+  flex-grow: 1; /* Allows details section to take up space */
+  margin-bottom: 15px;
+}
+
+.artwork-card h3 {
+  font-size: 1.5em;
+  color: #0D1A44;
+  margin-bottom: 8px;
+  line-height: 1.2;
+}
+
+.artwork-card p {
+  font-size: 0.95em;
+  color: #555;
+  margin-bottom: 5px;
+}
+
+.artist-name {
+    font-style: italic;
+    color: #777;
+}
+
+.artwork-price {
+  font-weight: bold;
+  color: #F04C4F; /* Reddish price color */
+  font-size: 1.1em;
+  margin-top: 10px;
+  margin-bottom: 15px !important; /* Ensure margin */
+}
+
+/* New: Artwork Interactions (Rating, Likes, Share) */
+.artwork-interactions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    font-size: 0.9em;
+    color: #777;
+    border-top: 1px solid #eee; /* Subtle separator */
+    padding-top: 10px;
+}
+
+.artwork-interactions .rating {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.artwork-interactions .rating .fas.fa-star {
+    color: #FFD700; /* Gold star color */
+    font-size: 1.1em;
+}
+
+.artwork-interactions .actions {
+    display: flex;
+    gap: 15px;
+}
+
+.artwork-interactions .actions .fas {
+    cursor: pointer;
+    font-size: 1.2em;
+    transition: color 0.2s ease;
+}
+
+.artwork-interactions .actions .fa-heart:hover {
+    color: #e74c3c; /* Red for like hover */
+}
+
+.artwork-interactions .actions .fa-share-alt:hover {
+    color: #3498db; /* Blue for share hover */
+}
+
+.add-to-cart-btn {
+  background-color: #f8dc09;
+  color: #0D1A44;
+  padding: 12px 15px; /* Slightly larger padding */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1em; /* Slightly larger font */
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+  width: 100%;
+  margin-top: auto; /* Pushes button to bottom of card */
+}
+
+.add-to-cart-btn:hover {
+  background-color: #e0c207;
+}
+
+.no-artworks-message {
+    margin-top: 50px;
+    font-size: 1.2em;
+    color: #888;
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 1024px) {
+    .filter-buttons {
+        max-width: 1000px; /* Adjust for medium screens */
+    }
+    .artworks-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Slightly smaller cards */
+        max-width: 960px; /* Adjust for medium screens */
+    }
+}
+
+@media (max-width: 768px) {
+    .all-artworks-page {
+        padding: 20px;
+        padding-top: 90px;
+    }
+
+    .filter-buttons {
+        gap: 10px;
+        max-width: 100%;
+        padding: 0 10px;
+    }
+
+    .filter-btn {
+        padding: 8px 15px;
+        font-size: 0.9em;
+    }
+
+    .artworks-grid {
+        grid-template-columns: 1fr; /* Single column on small screens */
+        gap: 20px;
+        padding: 0 10px;
+        max-width: 100%;
+    }
+
+    .artwork-image {
+        height: 180px;
+    }
+}
+/* In frontend/src/styles/AllArtworksPage.css */
+.artwork-card-link {
+    text-decoration: none; /* Remove underline */
+    color: inherit; /* Inherit text color from parent */
+    display: flex; /* Make the link fill the card area for better clickability */
+    flex-direction: column; /* Stack contents vertically */
+    height: 100%; /* Make it fill the card height */
+    /* Any other styles to make it look like a regular part of the card */
+}
+
+.artwork-card {
+    display: flex; /* Ensure flexbox for vertical arrangement of link + button */
+    flex-direction: column;
+    justify-content: space-between; /* Push button to bottom */
+    /* ... existing artwork-card styles ... */
+}
+/* frontend/src/pages/AllArtworksPage.css */
+
+/* ... your other styles ... */
+
+.artwork-interactions .actions .fa-heart {
+  cursor: pointer;
+  color: #666; /* Default color */
+  transition: color 0.2s ease-in-out;
+}
+
+.artwork-interactions .actions .fa-heart.liked {
+  color: red;
+}

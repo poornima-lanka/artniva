@@ -1,0 +1,66 @@
+/* frontend/src/styles/OrderPlacedPage.css */
+
+.order-placed-container {
+    max-width: 600px;
+    margin: 80px auto;
+    padding: 30px;
+    background-color: #e6ffe6; /* Light green background */
+    border: 1px solid #a3e3a3; /* Green border */
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    font-family: 'Arial', sans-serif;
+    color: #333;
+}
+
+.order-placed-container h2 {
+    color: #28a745; /* Green header */
+    font-size: 2.5em;
+    margin-bottom: 20px;
+}
+
+.order-placed-container p {
+    font-size: 1.1em;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.order-placed-actions {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+}
+
+.continue-shopping-button,
+.view-orders-button {
+    display: inline-block;
+    padding: 12px 25px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.1em;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.continue-shopping-button {
+    background-color: #007bff;
+    color: white;
+}
+
+.continue-shopping-button:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+.view-orders-button {
+    background-color: #6c757d;
+    color: white;
+}
+
+.view-orders-button:hover {
+    background-color: #5a6268;
+    transform: translateY(-2px);
+}

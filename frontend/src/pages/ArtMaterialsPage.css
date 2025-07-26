@@ -1,0 +1,94 @@
+/* frontend/src/pages/ArtMaterialsPage.css */
+
+.art-materials-page {
+  padding: 80px 40px 40px; /* Adjust padding to account for fixed header */
+  max-width: 1200px;
+  margin: 0 auto;
+  min-height: calc(100vh - 120px); /* Adjust based on header/footer height */
+  background-color: #f9f9f9;
+}
+
+.art-materials-page h1 {
+  font-size: 2.5em;
+  color: #0D1A44;
+  text-align: center;
+  margin-bottom: 40px;
+  position: relative;
+}
+
+.art-materials-page h1::after {
+    content: '';
+    display: block;
+    width: 100px;
+    height: 4px;
+    background-color: #f8dc09;
+    margin: 10px auto 0;
+    border-radius: 2px;
+}
+
+.loading-message,
+.error-message,
+.no-materials-found {
+  text-align: center;
+  font-size: 1.2em;
+  color: #555;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  margin-top: 50px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.error-message {
+  color: #dc3545; /* Red for errors */
+}
+
+.materials-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); /* Responsive grid */
+  gap: 30px;
+  justify-content: center; /* Center items if they don't fill the row */
+  padding: 20px 0;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+  .art-materials-page {
+    padding: 60px 20px 20px;
+  }
+
+  .art-materials-page h1 {
+    font-size: 2em;
+  }
+
+  .materials-grid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Smaller cards on small screens */
+    gap: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .materials-grid {
+    grid-template-columns: 1fr; /* Single column on very small screens */
+  }
+}
+
+/* In frontend/src/components/MaterialCard/MaterialCard.css */
+
+.material-card-link {
+    text-decoration: none; /* Removes underline from links */
+    color: inherit; /* Ensures text color is inherited */
+    display: flex; /* Makes the link behave like a block, filling its container */
+    flex-direction: column; /* Stacks contents vertically */
+    height: 100%; /* Makes the link take up the full height of the card */
+    padding-bottom: 10px; /* Adjust if needed for space above the button */
+}
+
+.material-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Pushes the button to the bottom */
+    /* ... existing material-card styles ... */
+}
+
+/* Ensure your Add to Cart button has a distinct class if needed, e.g., add-to-cart-material-btn */

@@ -1,0 +1,16 @@
+/* frontend/src/App.css */
+.App {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  box-sizing: border-box;
+}
+
+/* frontend/src/App.css */
+.App {
+  text-align: center;
+  /* Add any app-wide styles here */
+}

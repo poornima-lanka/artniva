@@ -1,0 +1,25 @@
+{
+  "short_name": "ArtNiva App",
+  "name": "ArtNiva E-commerce Platform",
+  "icons": [
+    {
+      "src": "artnivalogo.png",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/png"
+    },
+    {
+      "src": "artnivalogo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "artnivalogo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#0D1A44",
+  "background_color": "#ffffff"
+}

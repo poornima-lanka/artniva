@@ -1,0 +1,118 @@
+/* frontend/src/pages/ProfilePage.css */
+
+.profile-page {
+  padding: 40px 20px;
+  background-color: #f8f9fa;
+  min-height: calc(100vh - 120px);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.profile-container {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  width: 100%;
+  max-width: 700px;
+  text-align: center;
+}
+
+.profile-container h1 {
+  font-size: 2.2rem;
+  color: #333;
+  margin-bottom: 30px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.user-info-section {
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #eee;
+}
+
+.profile-avatar .fas.fa-user-circle {
+  font-size: 80px;
+  color: #007bff;
+  margin-bottom: 10px;
+}
+
+.username {
+  font-size: 1.8rem;
+  color: #555;
+  margin-bottom: 5px;
+}
+
+.user-email, .user-role {
+  font-size: 1rem;
+  color: #777;
+  margin-bottom: 3px;
+}
+
+.profile-sections {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  text-align: left;
+}
+
+.profile-sections .section {
+  background-color: #fdfdfd;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  padding: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.03);
+}
+
+.profile-sections .section h3 {
+  font-size: 1.4rem;
+  color: #444;
+  margin-bottom: 15px;
+  border-bottom: 2px solid #007bff;
+  padding-bottom: 5px;
+}
+
+.profile-sections .section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.profile-sections .section ul li {
+  margin-bottom: 10px;
+}
+
+.profile-sections .section ul li a {
+  text-decoration: none;
+  color: #007bff;
+  font-size: 1.1rem;
+  transition: color 0.3s ease;
+}
+
+.profile-sections .section ul li a:hover {
+  color: #0056b3;
+  text-decoration: underline;
+}
+
+.section.seller-section h3 {
+  border-color: #28a745;
+}
+
+.section.seller-section ul li a {
+  color: #28a745;
+}
+
+.section.seller-section ul li a:hover {
+  color: #218838;
+}
+
+@media (max-width: 768px) {
+  .profile-container {
+    padding: 20px;
+  }
+  .profile-sections {
+    grid-template-columns: 1fr;
+  }
+}

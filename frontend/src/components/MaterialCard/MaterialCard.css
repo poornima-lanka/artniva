@@ -1,0 +1,123 @@
+/* frontend/src/components/MaterialCard/MaterialCard.css */
+
+.material-card {
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  height: 100%; /* Ensures cards in a grid have consistent height */
+}
+
+.material-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+.material-image {
+  width: 100%;
+  height: 200px; /* Fixed height for image consistency */
+  object-fit: cover; /* Ensures image covers the area nicely */
+  border-bottom: 1px solid #eee;
+}
+
+.material-info {
+  padding: 15px;
+  flex-grow: 1; /* Allows info section to take available space */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Pushes button to bottom if space allows */
+}
+
+.material-name {
+  font-size: 1.3em;
+  color: #0D1A44; /* Dark blue */
+  margin-bottom: 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; /* For long names */
+}
+
+.material-brand { /* Assuming a 'brand' field */
+  font-size: 0.95em;
+  color: #555;
+  margin-bottom: 5px;
+}
+
+.material-price {
+  font-size: 1.2em;
+  color: #28a745; /* Green for price */
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.add-to-cart-btn {
+  background-color: #f8dc09; /* Yellow */
+  color: #0D1A44; /* Dark blue */
+  border: none;
+  border-radius: 5px;
+  padding: 10px 15px;
+  cursor: pointer;
+  font-size: 1em;
+  font-weight: bold;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  margin-top: 10px; /* Space above button */
+}
+
+.add-to-cart-btn:hover {
+  background-color: #e5c900; /* Darker yellow */
+  transform: translateY(-2px);
+}
+
+/* Optional: View Details Button if you uncomment it */
+.view-details-btn {
+    background-color: #0D1A44; /* Dark blue */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: bold;
+    transition: background-color 0.2s ease;
+    margin-top: 5px;
+}
+
+.view-details-btn:hover {
+    background-color: #1a2a5e;
+}
+
+
+/* frontend/src/components/MaterialCard/MaterialCard.css */
+
+/* Add these styles to the bottom of your file */
+
+.material-actions {
+  display: flex;
+  justify-content: flex-end; /* Align icons to the right */
+  gap: 10px; /* Space between the icons */
+  padding: 10px;
+}
+
+.like-button,
+.share-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  color: #ccc; /* Default grey color */
+  transition: color 0.2s ease-in-out;
+}
+
+.like-button:hover,
+.share-button:hover {
+  color: #f8dc09; /* Highlight color on hover */
+}
+
+/* Style for when a material is liked */
+.like-button.liked {
+  color: #dc3545; /* Red color for liked items */
+}

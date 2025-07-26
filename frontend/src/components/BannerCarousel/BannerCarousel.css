@@ -1,0 +1,117 @@
+/* frontend/src/components/BannerCarousel/BannerCarousel.css */
+
+.banner-carousel {
+  position: relative;
+  width: 100%;
+  max-width: 1200px; /* Adjust as needed */
+  margin: 0 auto 40px; /* Center and add space below */
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* Soft shadow */
+}
+
+.banner-slide {
+  position: relative;
+  width: 100%;
+  height: 300px; /* Fixed height for consistency */
+  display: flex; /* Use flex to align overlay content */
+  align-items: center; /* Vertically center content */
+  justify-content: center; /* Horizontally center content */
+  animation: fadeIn 1s ease-in-out; /* Simple fade transition */
+}
+
+.banner-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensures image covers the area without distortion */
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1; /* Image behind overlay */
+}
+
+.banner-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4); /* Default semi-transparent dark overlay */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+  z-index: 2; /* Overlay on top of image */
+}
+
+.banner-overlay h2 {
+  font-size: 2.8em;
+  font-weight: bold;
+  margin-bottom: 10px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.banner-overlay p {
+  font-size: 1.4em;
+  font-weight: 500;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.banner-dots {
+  position: absolute;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  z-index: 3; /* Dots on top of everything */
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  background-color: rgba(255, 255, 255, 0.6);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 2px solid rgba(0, 0, 0, 0.2);
+}
+
+.dot.active {
+  background-color: #f8dc09; /* Your yellow theme color */
+  border-color: #0D1A44; /* Your dark blue theme color */
+  transform: scale(1.2);
+}
+
+/* Optional fade animation for banners */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .banner-slide {
+    height: 200px;
+  }
+  .banner-overlay h2 {
+    font-size: 2em;
+  }
+  .banner-overlay p {
+    font-size: 1.1em;
+  }
+}
+
+@media (max-width: 480px) {
+  .banner-slide {
+    height: 150px;
+  }
+  .banner-overlay h2 {
+    font-size: 1.5em;
+  }
+  .banner-overlay p {
+    font-size: 0.9em;
+  }
+}

@@ -1,0 +1,67 @@
+/* frontend/src/pages/SellerDashboardPage.css */
+.seller-dashboard-page {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* Align to top, below header */
+  min-height: calc(100vh - 150px); /* Adjust for header/footer */
+  background-color: #f0f2f5;
+  padding: 20px;
+  padding-top: 100px; /* Account for fixed header */
+}
+
+.dashboard-container {
+  background-color: white;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 800px;
+  text-align: center;
+}
+
+.dashboard-container h1 {
+  font-size: 2.5em;
+  color: #0D1A44;
+  margin-bottom: 10px;
+}
+
+.dashboard-container h2 {
+  font-size: 1.8em;
+  color: #333;
+  margin-bottom: 25px;
+  border-bottom: 2px solid #f8dc09;
+  padding-bottom: 10px;
+  display: inline-block;
+}
+
+.dashboard-container p {
+  font-size: 1.1em;
+  color: #555;
+  margin-bottom: 15px;
+}
+
+.dashboard-sections {
+  margin-top: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.dashboard-btn {
+  background-color: #0D1A44;
+  color: white;
+  padding: 15px 30px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  min-width: 200px;
+}
+
+.dashboard-btn:hover {
+  background-color: #1a2a5e;
+  transform: translateY(-2px);
+}
