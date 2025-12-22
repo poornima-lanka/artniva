@@ -2,59 +2,56 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
+const path = require('path');
 const connectDB = require('./config/db');
-const path = require('path'); // Make sure this is at the t
-// Import your routes
 
+// 1. IMPORT ROUTES (Require mathrame vadali)
 const userRoutes = require('./routes/userRoutes');
-const productRoutes = require('./routes/productRoutes'); // For general products (paintings)
-const materialRoutes = require('./routes/materialRoutes'); // Dedicated routes for materials
+const productRoutes = require('./routes/productRoutes'); 
+const materialRoutes = require('./routes/materialRoutes');
 const cartRoutes = require('./routes/cartRoutes');
-const shopRoutes = require('./routes/shopRoutes'); // For combined shop items
-// Connect to database
+const shopRoutes = require('./routes/shopRoutes');
+const uploadRoutes = require('./routes/uploadRoutes');
+
+// 2. CONNECT DATABASE
 connectDB();
 
-// --- DEFINE 'app' FIRST ---
+// 3. INITIALIZE APP
 const app = express();
-// --- END DEFINE 'app' ---
 
-const PORT = process.env.PORT || 5000;
+// 4. MIDDLEWARE
+app.use(express.json()); 
+app.use(cors()); 
 
-// Middleware for parsing JSON and CORS, and serving static files
-app.use(express.json()); // To parse JSON request bodies
-app.use(cors()); // To allow cross-origin requests
-
-// Serve static files from the 'public' folder (for general frontend assets)
-app.use(express.static('public'));
-
-// --- NOW, SERVE YOUR UPLOADS FOLDER ---
-// This makes files in 'backend/uploads' accessible via '/uploads' URL prefix
+// 5. STATIC FILES (Images access avvalante idi correct ga undali)
+// Backend folder lopala uploads unte idi perfect
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-// --- END UPLOADS SERVING ---
+app.use(express.static(path.join(__dirname, 'public')));
 
-// Basic route
+// 6. API ROUTES
 app.get('/', (req, res) => {
-  res.send('ArtNiva API is Running!');
+  res.send('ArtNiva API is Running!');
 });
 
-// API Routes (Make sure these come after all app.use middleware)
+// Ee routes order lo unnayani chusukondi
+app.use('/api/materials', materialRoutes); // Material POST request ikkadiki vasthundi
 app.use('/api/users', userRoutes);
-app.use('/api/products', productRoutes); // This will now typically be for artworks/general products
-app.use('/api/materials', materialRoutes); // Dedicated route for materials
+app.use('/api/products', productRoutes); 
 app.use('/api/cart', cartRoutes);
 app.use('/api/shop', shopRoutes);
+app.use('/api/upload', uploadRoutes);
 
-// Error Handling Middleware (MUST be after all routes)
-app.use(notFound); // Ensure notFound and errorHandler are imported/defined
+// 7. ERROR HANDLING
+app.use(notFound);
 app.use(errorHandler);
 
+// 8. START SERVER
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-  console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`);
-  console.log(`Access it at http://localhost:${PORT}`);
+  console.log(`Server running in ${process.env.NODE_ENV || 'development'} mode on port ${PORT}`);
 });
 
-// Make sure your notFound and errorHandler functions are correctly defined
-// (e.g., in middleware/errorMiddleware.js and imported, or defined directly)
+// --- HELPER FUNCTIONS ---
 function notFound(req, res, next) {
     const error = new Error(`Not Found - ${req.originalUrl}`);
     res.status(404);

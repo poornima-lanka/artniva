@@ -258,7 +258,16 @@ function ProductDetailsPage() {
       )}
       <div className="product-details-content">
         <div className="product-image-section">
-          <img src={product.imageUrl || product.image} alt={product.name} className="product-detail-image" />
+          <img src={
+              product.image ? `http://localhost:5000/uploads/${product.image.split(/[\\/]/).pop()}` : product.imageUrl
+                   } 
+                    alt={product.name} 
+                   className="product-detail-image" 
+                   onError={(e) => {
+                     // Image rakapothe placeholder chupisthundi
+                      e.target.src = "https://via.placeholder.com/400?text=Painting+Not+Found";
+                      }}
+           />
         </div>
         <div className="product-info-section">
           <h1>{product.name}</h1>

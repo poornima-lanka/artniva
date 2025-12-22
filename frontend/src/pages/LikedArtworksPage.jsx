@@ -1,86 +1,102 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import './LikedArtworksPage.css'; // Don't forget to create this CSS file
+import './LikedArtworksPage.css';
 
 const LikedArtworksPage = () => {
-  const [likedArtworks, setLikedArtworks] = useState([]);
+  const [likedItems, setLikedItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [userInfo, setUserInfo] = useState(null);
 
   useEffect(() => {
-    // First, get user info from local storage
     const storedUserInfo = localStorage.getItem('userInfo');
     if (storedUserInfo) {
       setUserInfo(JSON.parse(storedUserInfo));
     } else {
-      // If no user is logged in, show an error and stop loading
-      setError("Please log in to see your liked artworks.");
+      setError("Please log in to see your liked items.");
       setLoading(false);
     }
   }, []);
 
   useEffect(() => {
-    // Then, if user info exists, fetch the liked artworks
     if (userInfo && userInfo.token) {
-      const fetchLikedArtworks = async () => {
+      const fetchAllLiked = async () => {
         try {
-          const response = await fetch('http://localhost:5000/api/products/liked', {
-            headers: {
-              'Authorization': `Bearer ${userInfo.token}`,
-            },
+          setLoading(true);
+          
+          // Fetch Liked Paintings (Products)
+          const productRes = await fetch('http://localhost:5000/api/products/liked', {
+            headers: { 'Authorization': `Bearer ${userInfo.token}` },
+          });
+          
+          // Fetch Liked Materials (Separate API call)
+          const materialRes = await fetch('http://localhost:5000/api/materials/liked', {
+            headers: { 'Authorization': `Bearer ${userInfo.token}` },
           });
 
-          if (!response.ok) {
-            throw new Error('Failed to fetch liked artworks.');
-          }
-          const data = await response.json();
-          setLikedArtworks(data);
+          let products = [];
+          let materials = [];
+
+          if (productRes.ok) products = await productRes.json();
+          if (materialRes.ok) materials = await materialRes.json();
+
+          // Combine both arrays and add a 'type' to distinguish them
+          const combined = [
+            ...products.map(p => ({ ...p, itemType: 'Painting' })),
+            ...materials.map(m => ({ ...m, itemType: 'Material' }))
+          ];
+
+          setLikedItems(combined);
         } catch (err) {
-          setError(err.message);
+          setError("Failed to fetch liked items.");
+          console.error(err);
         } finally {
           setLoading(false);
         }
       };
-      fetchLikedArtworks();
+
+      fetchAllLiked();
     }
-  }, [userInfo]); // This effect runs whenever userInfo state changes
+  }, [userInfo]);
 
-  if (loading) {
-    return (
-      <div className="liked-artworks-page">
-        <h2>Loading...</h2>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="liked-artworks-page">
-        <p className="error-message">{error}</p>
-      </div>
-    );
-  }
+  if (loading) return <div className="liked-artworks-page"><h2>Loading liked items...</h2></div>;
+  if (error) return <div className="liked-artworks-page"><p className="error-message">{error}</p></div>;
 
   return (
     <div className="liked-artworks-page">
-      <h2>Your Liked Artworks</h2>
-      {likedArtworks.length > 0 ? (
+      <h2>Your Liked Artworks & Materials</h2>
+      {likedItems.length > 0 ? (
         <div className="liked-artworks-grid">
-          {likedArtworks.map(art => (
-            <div key={art._id} className="artwork-card">
-              <Link to={`/artwork/${art._id}`}>
-                <img src={art.image} alt={art.name} className="artwork-image" />
+          {likedItems.map(item => (
+            <div key={item._id} className="artwork-card">
+              {/* Correct Link based on type */}
+              <Link to={item.itemType === 'Material' ? `/material/${item._id}` : `/artwork/${item._id}`}>
+                
+                {/* Image Fix: Same logic as detail page */}
+                <img 
+                  src={
+                    item.image 
+                      ? `http://localhost:5000/uploads/${item.image.split(/[\\/]/).pop()}` 
+                      : item.imageUrl
+                  } 
+                  alt={item.name} 
+                  className="artwork-image" 
+                  onError={(e) => {
+                    e.target.src = "https://via.placeholder.com/300?text=No+Image";
+                  }}
+                />
+
                 <div className="artwork-details">
-                  <h3>{art.name}</h3>
-                  <p className="artwork-price">₹{art.price.toFixed(2)}</p>
+                  <span className="item-badge">{item.itemType}</span>
+                  <h3>{item.name}</h3>
+                  <p className="artwork-price">₹{item.price.toFixed(2)}</p>
                 </div>
               </Link>
             </div>
           ))}
         </div>
       ) : (
-        <p>You haven't liked any artworks yet.</p>
+        <p>You haven't liked anything yet.</p>
       )}
     </div>
   );

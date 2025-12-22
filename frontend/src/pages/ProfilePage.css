@@ -116,3 +116,59 @@
     grid-template-columns: 1fr;
   }
 }
+
+
+/* Styling for the Management Buttons */
+.btn-list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.btn-dash {
+  display: block;
+  text-align: center;
+  padding: 12px;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+/* Yellow/Dark theme for Admin */
+.admin-btn {
+  background-color: #f8dc09;
+  color: #0D1A44;
+  border: 1px solid #0D1A44;
+}
+
+.admin-btn:hover {
+  background-color: #0D1A44;
+  color: #f8dc09;
+}
+
+/* Dark Blue theme for Sellers */
+.seller-btn {
+  background-color: #0D1A44;
+  color: white;
+}
+
+.seller-btn:hover {
+  background-color: #1a2a6c;
+}
+
+/* Role Badges */
+.role-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.8em;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.role-admin { background: #f8dc09; color: #000; }
+.role-seller { background: #0D1A44; color: #fff; }
+.role-customer { background: #eee; color: #333; }

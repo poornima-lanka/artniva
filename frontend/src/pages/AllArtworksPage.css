@@ -252,3 +252,15 @@
 .artwork-interactions .actions .fa-heart.liked {
   color: red;
 }
+
+.like-button.liked svg {
+  color: red !important;
+  fill: red !important;
+}
+
+.artwork-image {
+  width: 100%;
+  height: 250px;
+  object-fit: cover; /* This makes images look professional */
+  display: block;
+}

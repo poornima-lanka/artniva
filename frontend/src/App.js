@@ -1,70 +1,94 @@
-
 // frontend/src/App.js
-import React from 'react'; // <--- No useState needed here anymore for search
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
 import './App.css';
-// import Layout from './components/Layout/Layout'; // Keep this line removed/commented out
+
+// Layout Components
+import Header from './components/Layout/Header'; 
+import Footer from './components/Layout/Footer'; 
+
+// Contexts
+import { UserProvider } from './context/UserContext';
+import { CartProvider } from './context/CartContext';
+
+// Utility/Auth
+import ProtectedRoute from './components/ProtectedRoute';
+
+// Public Pages
 import HomePage from './pages/HomePage';
 import AllArtworksPage from './pages/AllArtworksPage';
+import ArtMaterialsPage from './pages/ArtMaterialsPage'; 
+import ProductDetailsPage from './pages/ProductDetailsPage'; 
+import MaterialDetailsPage from './pages/MaterialDetailsPage';
+import Combinedpage from './pages/Combinedpage'; // Assuming this is for shopping
+import LikedArtworksPage from './pages/LikedArtworksPage'; 
+
+// Auth/User Pages
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
-import { UserProvider } from './context/UserContext';
-import ProtectedRoute from './components/ProtectedRoute';
-import SellerDashboardPage from './pages/SellerDashboardPage';
 import ProfilePage from './pages/ProfilePage';
-import CartPage from './pages/CartPage'; // <--- Import the new CartPage
+import CartPage from './pages/CartPage'; 
 import OrderPlacedPage from './pages/OrderPlacedPage';
-import Header from './components/Layout/Header'; // Keep this import
-import Footer from './components/Layout/Footer'; // Keep this import
-import ArtMaterialsPage from './pages/ArtMaterialsPage'; // <--- NEW IMPORT
-import { CartProvider } from './context/CartContext';
-import ProductDetailsPage from './pages/ProductDetailsPage'; // Add this line
-import MaterialDetailsPage from './pages/MaterialDetailsPage';
-import LikedArtworksPage from './pages/LikedArtworksPage'; 
-import Combinedpage from './pages/Combinedpage';
+
+// Admin/Seller Pages (The new focus)
+import SellerDashboardPage from './pages/SellerDashboardPage';
+// NOTE: I am assuming your screen folder is named 'screens' (plural) as per common React convention.
+// If your folder is named 'screen', please change the path below.
+import ProductListScreen from './screens/ProductListScreen'; // Corrected folder name
+import ProductCreateScreen from './screens/ProductCreateScreen'; // Corrected folder name
+
+import ForgotPasswordScreen from './screens/ForgotPasswordScreen'; // <-- NEW IMPORT
+import ResetPasswordScreen from './screens/ResetPasswordScreen'; // <-- NEW IMPORT
+import AdminDashboard from './pages/AdminDashboard';
+
+
 function App() {
-  // REMOVE THESE LINES: isSearchOpen state and toggleSearch function are now in Header.jsx
-  // const [isSearchOpen, setIsSearchOpen] = useState(false);
-  // const toggleSearch = () => {
-  //   setIsSearchOpen(!isSearchOpen);
-  // };
-
   return (
-    <Router>
-       <CartProvider>
+    <CartProvider>
       <UserProvider>
-        {/* CRITICAL: Render Header directly here. Pass no props related to search. */}
-        <Header /> {/* <--- This must be uncommented and present */}
+        <Header /> 
 
-        <main> {/* Use <main> tag directly for your content */}
+        {/* Added a style to main to prevent the Fixed Header from covering content */}
+        <main style={{ paddingTop: '80px', minHeight: '80vh' }}> 
           <Routes>
+            {/* --- Public Routes --- */}
             <Route path="/" element={<HomePage />} />
             <Route path="/all-artworks" element={<AllArtworksPage />} />
-             <Route path="/art-materials" element={<ArtMaterialsPage />} />
-             <Route path="/materials/:id" element={<MaterialDetailsPage />} />
+            <Route path="/art-materials" element={<ArtMaterialsPage />} />
+            <Route path="/artwork/:id" element={<ProductDetailsPage />} /> 
+            <Route path="/materials/:id" element={<MaterialDetailsPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
+            <Route path="/forgotpassword" element={<ForgotPasswordScreen />} />
+            <Route path="/resetpassword/:token" element={<ResetPasswordScreen />} />
+
+            {/* --- User Routes (Requires Login) --- */}
             <Route path="/profile" element={<ProfilePage />} />
             <Route path="/liked" element={<LikedArtworksPage />} />
             <Route path="/shopping" element={<Combinedpage />} />
-             <Route path="/cart" element={<CartPage />} /> {/* <--- New Cart Route */}
-              <Route path="/order-placed" element={<OrderPlacedPage />} /> 
-              <Route path="/material/:id" element={<MaterialDetailsPage />} /> {/* Add this line */}
-              <Route path="/artwork/:id" element={<ProductDetailsPage />} /> {/* Add this line */}
+            <Route path="/cart" element={<CartPage />} />
+            <Route path="/order-placed" element={<OrderPlacedPage />} /> 
+
+            {/* --- Seller Protected Routes --- */}
             <Route element={<ProtectedRoute allowedRoles={['seller', 'admin']} />}>
               <Route path="/seller/dashboard" element={<SellerDashboardPage />} />
             </Route>
+            
+            {/* --- Admin Protected Routes (MOVE DASHBOARD HERE) --- */}
+            <Route element={<ProtectedRoute allowedRoles={['admin']} />}>
+                <Route path="/admin/dashboard" element={<AdminDashboard />} /> {/* MOVED HERE */}
+                <Route path="/admin/products" element={<ProductListScreen />} />
+                <Route path="/admin/product/create" element={<ProductCreateScreen />} />
+            </Route>
+            
+            {/* Fallback */}
+            <Route path="*" element={<h1>404 Page Not Found</h1>} />
           </Routes>
         </main>
 
-        <Footer /> {/* Footer rendered directly */}
-        
-        {/* REMOVE THIS LINE: SearchOverlay is no longer rendered here */}
-        {/* {isSearchOpen && <SearchOverlay onClose={toggleSearch} />} */}
+        <Footer /> 
       </UserProvider>
-      </CartProvider>
-    </Router>
+    </CartProvider>
   );
 }
-
 export default App;

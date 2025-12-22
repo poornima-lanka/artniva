@@ -1,19 +1,28 @@
-// backend/controllers/productController.js
 const asyncHandler = require('express-async-handler');
 const Product = require('../models/Product');
 const User = require('../models/User');
 
-// @desc  Fetch all products
-// @route GET /api/products
-// @access Public
+// @desc    Fetch all products (with Search Filter)
+// @route   GET /api/products
+// @access  Public
 const getProducts = asyncHandler(async (req, res) => {
-  const products = await Product.find({});
+  // SMART SEARCH LOGIC
+  const keyword = req.query.keyword
+    ? {
+        name: {
+          $regex: req.query.keyword,
+          $options: 'i', // 'i' means case-insensitive
+        },
+      }
+    : {};
+
+  const products = await Product.find({ ...keyword });
   res.json(products);
 });
 
-// @desc  Fetch a single product by ID
-// @route GET /api/products/:id
-// @access Public
+// @desc    Fetch a single product by ID
+// @route   GET /api/products/:id
+// @access  Public
 const getProductById = asyncHandler(async (req, res) => {
   const product = await Product.findById(req.params.id);
   if (product) {
@@ -24,16 +33,19 @@ const getProductById = asyncHandler(async (req, res) => {
   }
 });
 
-// @desc  Create a new product
-// @route POST /api/products
-// @access Private/Seller
+// @desc    Create a new product
+// @route   POST /api/products
+// @access  Private/Seller
 const createProduct = asyncHandler(async (req, res) => {
-  const { name, image, description, category, price, countInStock } = req.body;
+  const { name, description, category, price, countInStock } = req.body;
+
+  // Check if a file was uploaded, otherwise look for a string in body
+ const imagePath = req.file ? `/${req.file.path.replace(/\\/g, '/')}` : req.body.image;
 
   const product = new Product({
-    user: req.user._id,
+    seller: req.user._id,
     name,
-    image,
+    image: imagePath, // Use the path we just defined
     description,
     category,
     price,
@@ -44,21 +56,24 @@ const createProduct = asyncHandler(async (req, res) => {
   res.status(201).json(createdProduct);
 });
 
-// @desc  Update a product
-// @route PUT /api/products/:id
-// @access Private/Seller
+// @desc    Update a product
+// @route   PUT /api/products/:id
+// @access  Private/Seller
 const updateProduct = asyncHandler(async (req, res) => {
-  const { name, image, description, category, price, countInStock } = req.body;
-
+  const { name, description, category, price, countInStock } = req.body;
   const product = await Product.findById(req.params.id);
 
   if (product) {
     product.name = name;
-    product.image = image;
     product.description = description;
     product.category = category;
     product.price = price;
     product.countInStock = countInStock;
+
+    // Check if a NEW file was uploaded during the update
+    if (req.file) {
+      product.image = `/${req.file.path.replace(/\\/g, '/')}`;
+    }
 
     const updatedProduct = await product.save();
     res.json(updatedProduct);
@@ -68,9 +83,9 @@ const updateProduct = asyncHandler(async (req, res) => {
   }
 });
 
-// @desc  Delete a product
-// @route DELETE /api/products/:id
-// @access Private/Seller/Admin
+// @desc    Delete a product
+// @route   DELETE /api/products/:id
+// @access  Private/Seller/Admin
 const deleteProduct = asyncHandler(async (req, res) => {
   const product = await Product.findById(req.params.id);
   if (product) {
@@ -82,17 +97,17 @@ const deleteProduct = asyncHandler(async (req, res) => {
   }
 });
 
-// @desc  Get products created by the logged-in seller
-// @route GET /api/products/myproducts
-// @access Private/Seller
+// @desc    Get products created by the logged-in seller
+// @route   GET /api/products/myproducts
+// @access  Private/Seller
 const getSellerProducts = asyncHandler(async (req, res) => {
-  const products = await Product.find({ user: req.user._id });
+  const products = await Product.find({ seller: req.user._id });
   res.json(products);
 });
 
-// @desc  Create new review
-// @route POST /api/products/:id/reviews
-// @access Private
+// @desc    Create new review
+// @route   POST /api/products/:id/reviews
+// @access  Private
 const createProductReview = asyncHandler(async (req, res) => {
   const { rating, comment } = req.body;
   const product = await Product.findById(req.params.id);
@@ -128,9 +143,9 @@ const createProductReview = asyncHandler(async (req, res) => {
   }
 });
 
-// @desc  Toggle like status for a product
-// @route POST /api/products/:id/like
-// @access Private
+// @desc    Toggle like status for a product
+// @route   POST /api/products/:id/like
+// @access  Private
 const likeProduct = asyncHandler(async (req, res) => {
   const product = await Product.findById(req.params.id);
   if (product) {
@@ -138,9 +153,9 @@ const likeProduct = asyncHandler(async (req, res) => {
       (like) => like.toString() === req.user._id.toString()
     );
     if (isLiked) {
-      product.likes.pull(req.user._id); // Use Mongoose's pull method to remove the ID
+      product.likes.pull(req.user._id);
     } else {
-      product.likes.push(req.user._id); // Use Mongoose's push to add the ID
+      product.likes.push(req.user._id);
     }
     await product.save();
     res.status(200).json(product);
@@ -150,9 +165,9 @@ const likeProduct = asyncHandler(async (req, res) => {
   }
 });
 
-// @desc  Get products liked by the logged-in user
-// @route GET /api/products/liked
-// @access Private
+// @desc    Get products liked by the logged-in user
+// @route   GET /api/products/liked
+// @access  Private
 const getLikedProducts = asyncHandler(async (req, res) => {
   if (!req.user || !req.user._id) {
     res.status(401);

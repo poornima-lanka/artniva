@@ -1,0 +1,26 @@
+.search-box-form {
+    display: flex;
+    align-items: center;
+    background-color: #1a1a1a; /* Matches your dark theme */
+    border: 1px solid #333;
+    border-radius: 25px;
+    padding: 2px 15px;
+    margin: 0 15px;
+}
+
+.search-input {
+    background: transparent;
+    border: none;
+    color: white;
+    padding: 8px;
+    outline: none;
+    width: 200px;
+}
+
+.search-btn {
+    background: none;
+    border: none;
+    color: #f1e01a; /* Matches your yellow buttons */
+    cursor: pointer;
+    font-size: 1.2rem;
+}

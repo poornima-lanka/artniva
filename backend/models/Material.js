@@ -1,7 +1,6 @@
-// backend/models/Material.js
 const mongoose = require('mongoose');
 
-// The review schema
+// The review schema - (Mee code, emi marchaledhu)
 const reviewSchema = mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
@@ -25,17 +24,26 @@ const reviewSchema = mongoose.Schema({
 });
 
 const materialSchema = new mongoose.Schema({
-  // ... (your existing fields) ...
   name: { type: String, required: true },
+  
+  // FIX 1: "seller" field add chesthunnanu (Lekapothe "My Inventory" lo items kanipinchaavu)
+  seller: { 
+    type: mongoose.Schema.Types.ObjectId, 
+    required: true, 
+    ref: 'User' 
+  },
+  
   brand: { type: String },
   category: { type: String, required: true },
   description: { type: String, required: true },
   price: { type: Number, required: true, default: 0 },
   countInStock: { type: Number, required: true, default: 0 },
-  imageUrl: { type: String, required: true },
+
+  // FIX 2: "imageUrl" ni "image" ga marchanu (Mee controller/dashboard lo ide name undi)
+  image: { type: String, required: true }, 
+
   likes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
 
-  // ADDED THESE NEW FIELDS
   reviews: [reviewSchema],
   numReviews: {
     type: Number,

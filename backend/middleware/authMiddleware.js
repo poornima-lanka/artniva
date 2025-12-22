@@ -44,21 +44,20 @@ const admin = (req, res, next) => {
   if (req.user && req.user.role === 'admin') {
     next();
   } else {
-    res.status(401);
-    throw new Error('Not authorized as an admin');
+    res.status(401).json({ message: 'Not authorized as an admin' });
   }
 };
 
 // Seller middleware (allows admins too, as they usually have seller capabilities)
 const seller = (req, res, next) => {
-  if (req.user && (req.user.role === 'seller' || req.user.role === 'admin')) {
+  if (req.user && req.user.role === 'seller' && req.user.isVerifiedSeller) {
     next();
   } else {
-    res.status(401);
-    throw new Error('Not authorized as a seller');
+    res.status(401).json({ message: 'Seller access denied. Wait for Admin approval.' });
   }
 };
 
+module.exports = { protect, admin, seller };
 
 
 module.exports = { protect, admin, seller };

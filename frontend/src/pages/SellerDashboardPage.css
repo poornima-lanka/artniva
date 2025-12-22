@@ -1,67 +1,188 @@
-/* frontend/src/pages/SellerDashboardPage.css */
-.seller-dashboard-page {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start; /* Align to top, below header */
-  min-height: calc(100vh - 150px); /* Adjust for header/footer */
-  background-color: #f0f2f5;
-  padding: 20px;
-  padding-top: 100px; /* Account for fixed header */
+/* Sidebar specific to Seller */
+.seller-sidebar {
+    background: linear-gradient(180deg, #1a237e 0%, #121858 100%) !important;
 }
 
-.dashboard-container {
-  background-color: white;
-  padding: 40px;
-  border-radius: 10px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  max-width: 800px;
-  text-align: center;
+.sidebar-nav button {
+    width: 100%;
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.7);
+    padding: 15px 20px;
+    text-align: left;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
-.dashboard-container h1 {
-  font-size: 2.5em;
-  color: #0D1A44;
-  margin-bottom: 10px;
+.sidebar-nav button:hover, .sidebar-nav button.active {
+    background: rgba(255,255,255,0.1);
+    color: white;
 }
 
-.dashboard-container h2 {
-  font-size: 1.8em;
-  color: #333;
-  margin-bottom: 25px;
-  border-bottom: 2px solid #f8dc09;
-  padding-bottom: 10px;
-  display: inline-block;
+/* Extract Section */
+.extract-container {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 30px;
+    margin-top: 20px;
 }
 
-.dashboard-container p {
-  font-size: 1.1em;
-  color: #555;
-  margin-bottom: 15px;
+.balance-card {
+    text-align: center;
+    padding: 40px !important;
 }
 
-.dashboard-sections {
-  margin-top: 30px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
+.balance-amount {
+    font-size: 3rem;
+    font-weight: 800;
+    color: #2e7d32;
+    margin: 20px 0;
 }
 
-.dashboard-btn {
-  background-color: #0D1A44;
-  color: white;
-  padding: 15px 30px;
-  border: none;
-  border-radius: 8px;
-  font-size: 1.1em;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-  min-width: 200px;
+.extract-button {
+    background: #1a237e;
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 10px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.3s;
 }
 
-.dashboard-btn:hover {
-  background-color: #1a2a5e;
-  transform: translateY(-2px);
+.extract-button:hover {
+    background: #283593;
+    transform: translateY(-3px);
+}
+
+/* Form Styles */
+.modern-form .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.modern-form input, .modern-form textarea, .modern-form select {
+    background: rgba(255,255,255,0.8);
+    border: 1px solid #ddd;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 1rem;
+}
+
+.modern-form textarea {
+    grid-column: span 2;
+    height: 100px;
+}
+
+.submit-btn {
+    margin-top: 20px;
+    width: 100%;
+    padding: 15px;
+    background: #1a237e;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* ... your existing css ... */
+
+/* File Input Styling */
+input[type="file"] {
+    display: none; /* Hide the ugly default button */
+}
+
+.file-input-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255,255,255,0.8);
+    border: 1px solid #ddd;
+    padding: 6px;
+    border-radius: 8px;
+}
+
+.custom-file-upload {
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+    background: #f0f0f0;
+    border-radius: 5px;
+    font-weight: 500;
+}
+
+.file-name {
+    font-size: 0.9rem;
+    color: white; /* White text to show up on dark background */
+    font-style: italic;
+}
+
+/* Styling the custom upload button */
+.upload-container {
+    margin: 10px 0;
+    width: 100%;
+}
+
+.custom-file-upload {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 2px dashed #4ecdc4; /* Nice teal dashed border */
+    background: rgba(78, 205, 196, 0.05);
+    color: #4ecdc4;
+    padding: 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: bold;
+    text-align: center;
+}
+
+.custom-file-upload:hover {
+    background: rgba(78, 205, 196, 0.15);
+    border-color: #ffffff;
+    color: #ffffff;
+}
+
+.custom-file-upload i {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.upload-container {
+    grid-column: span 2; /* Makes it take full width in the form grid */
+    margin: 10px 0;
+}
+
+.custom-file-upload {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 2px dashed #4ecdc4; /* Teal border */
+    background: rgba(78, 205, 196, 0.05);
+    color: #4ecdc4;
+    padding: 30px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.custom-file-upload:hover {
+    background: rgba(78, 205, 196, 0.15);
+    border-color: #ffffff;
+    color: #ffffff;
+}
+
+.custom-file-upload i {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
 }

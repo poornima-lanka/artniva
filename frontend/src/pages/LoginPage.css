@@ -110,3 +110,22 @@
 .register-link span:hover {
   color: #f8dc09;
 }
+
+
+
+.forgot-password-link {
+  margin-top: 15px; 
+  font-size: 0.9em;
+  text-align: center; /* Ensures it's centered like your other links */
+}
+
+.forgot-password-link span {
+  color: #0D1A44; 
+  cursor: pointer;
+  text-decoration: underline;
+  transition: color 0.2s ease;
+}
+
+.forgot-password-link span:hover {
+  color: #f8dc09; 
+}

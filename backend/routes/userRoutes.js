@@ -1,31 +1,45 @@
-// backend/routes/userRoutes.js
 const express = require('express');
+const router = express.Router();
 const {
     registerUser,
-    loginUser, // <-- Corrected: Use loginUser here
+    loginUser,
     getUserProfile,
-    updateUserProfile, // <-- Important for profile updates
-    getAllUsers, // For admin to view all users
-    deleteUser,  // For admin to delete users
+    updateUserProfile,
+    getAdminStats, // Imported correctly
+    verifySeller,  // Imported correctly
+    getAllUsers,
+    deleteUser,
+    forgotPassword,
+    resetPassword,
 } = require('../controllers/userController');
-const { protect, admin } = require('../middleware/authMiddleware'); // Ensure 'admin' is imported
+const { protect, admin } = require('../middleware/authMiddleware');
 
-const router = express.Router();
+// --- PUBLIC ROUTES ---
+router.post('/register', registerUser);
+router.post('/login', loginUser);
+router.post('/forgotpassword', forgotPassword);
+router.put('/resetpassword/:token', resetPassword);
 
-// Public routes (no authentication needed)
-router.post('/register', registerUser); // <-- Corrected path: /register
-router.post('/login', loginUser);       // <-- Corrected path: /login and controller: loginUser
-
-// Protected routes (authentication needed)
+// --- PROTECTED USER ROUTES ---
 router.route('/profile')
     .get(protect, getUserProfile)
-    .put(protect, updateUserProfile); // <-- Added update profile route
+    .put(protect, updateUserProfile);
 
-// Admin-only routes (authentication + admin role needed)
-router.route('/') // This applies to /api/users/
-    .get(protect, admin, getAllUsers); // Get all users, admin only
+// --- ADMIN ONLY ROUTES ---
 
-router.route('/:id') // This applies to /api/users/:id
-    .delete(protect, admin, deleteUser); // Delete user by ID, admin only
+// 1. DASHBOARD STATS (This was missing!)
+// This is what fixes the "0" values on your dashboard
+router.get('/stats', protect, admin, getAdminStats); 
+
+// 2. SELLER VERIFICATION
+// We use the function from your controller instead of writing it here again
+router.put('/:id/verify', protect, admin, verifySeller);
+
+// 3. USER MANAGEMENT (Get all or Delete)
+router.route('/')
+    .get(protect, admin, getAllUsers);
+
+router.route('/:id')
+    .delete(protect, admin, deleteUser);
 
 module.exports = router;

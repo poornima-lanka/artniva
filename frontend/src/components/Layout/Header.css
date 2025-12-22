@@ -371,3 +371,54 @@
 .dropdown-menu li a:hover {
   background-color: #343a40; /* Darker hover effect */
 }
+
+/* 1. Ensure the main header doesn't allow wrapping on desktop */
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 30px; /* Slightly reduced padding */
+    flex-wrap: nowrap; /* Forces one line */
+}
+
+/* 2. Reduce the gap between navigation links to save space */
+.nav-links ul {
+    display: flex;
+    gap: 15px; /* Reduced from 30px to fit everything */
+    align-items: center;
+}
+
+.nav-links a {
+    font-size: 0.95em; /* Slightly smaller font */
+}
+
+/* 3. Fix the User Profile area (the poornima section) */
+.icon-buttons {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0; /* Prevents this section from getting squashed */
+}
+
+/* 4. Ensure the profile name and icon stay together */
+.user-profile-link {
+    display: flex;
+    flex-direction: column; /* Icon on top, name on bottom */
+    align-items: center;
+    text-decoration: none;
+    color: white;
+    font-size: 0.8em;
+    line-height: 1.2;
+}
+
+/* 5. Adjust the Sign Out button size */
+.sign-in-btn {
+    padding: 6px 15px; /* Smaller padding */
+    font-size: 0.9em;
+    white-space: nowrap; /* Prevents "Sign Out" from splitting into two lines */
+}
+
+/* 6. Make the search container more compact */
+.search-container .search-form-inline {
+    width: 200px; /* Reduced from 250px */
+}

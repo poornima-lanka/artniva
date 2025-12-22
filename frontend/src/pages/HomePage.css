@@ -50,7 +50,7 @@
 }
 
 .hero-buttons .btn {
-    background-color: #ff6666; /* Yellow button background */
+    background-color: #f8dc09; /* Yellow button background */
     color: #ffffff; /* Dark blue button text */
     padding: 12px 25px;
     border: none;
@@ -62,7 +62,7 @@
 }
 
 .hero-buttons .btn:hover {
-    background-color: #f11c40; /* Slightly darker yellow on hover */
+    background-color: #04067b; /* Slightly darker yellow on hover */
 }
 
 .hero-buttons span {
@@ -103,7 +103,7 @@
 
 /* Copyright Section (This will eventually be moved to a Footer component) */
 .copyright-section {
-    background-color: #ff6666; /* Dark blue background */
+    background-color: #f8dc09; /* Dark blue background */
     color: white;
     padding: 20px;
     text-align: center;

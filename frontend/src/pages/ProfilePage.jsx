@@ -1,80 +1,80 @@
-// frontend/src/pages/ProfilePage.jsx
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useUser } from '../context/UserContext';
-import './ProfilePage.css'; // Ensure this CSS file exists and contains the styles I provided earlier
+import './ProfilePage.css';
 
 function ProfilePage() {
-  const { userInfo, isSeller, isAdmin, isCustomer } = useUser(); // Destructure isCustomer
+  const { userInfo, isSeller, isAdmin, isCustomer } = useUser();
   const navigate = useNavigate();
 
-  if (!userInfo) {
-    navigate('/login');
-    return null;
-  }
+  // Redirect to login if not authenticated
+  useEffect(() => {
+    if (!userInfo) {
+      navigate('/login');
+    }
+  }, [userInfo, navigate]);
+
+  if (!userInfo) return null;
 
   return (
     <div className="profile-page">
       <div className="profile-container">
-        <h1>ACCOUNT</h1>
+        <header className="profile-header">
+           <h1>ACCOUNT</h1>
+        </header>
 
+        {/* --- USER IDENTITY SECTION --- */}
         <div className="user-info-section">
-          <div className="profile-avatar">
-            <i className="fas fa-user-circle"></i>
-          </div>
+          <div className="profile-avatar"><i className="fas fa-user-circle"></i></div>
           <h2 className="username">{userInfo.name}</h2>
           <p className="user-email">{userInfo.email}</p>
-          <p className="user-role">Role: {userInfo.role}</p>
+          
+          {/* Badge color varies by role */}
+          <div className={`role-badge role-${userInfo.role}`}>
+             {userInfo.role?.toUpperCase()}
+          </div>
+          
+          {/* Seller Status (Only for Sellers) */}
+          {userInfo.role === 'seller' && (
+            <p className={`verify-status ${userInfo.isVerifiedSeller ? 'text-success' : 'text-warning'}`}>
+               {userInfo.isVerifiedSeller ? "✅ Verified Artist" : "⏳ Pending Approval"}
+            </p>
+          )}
         </div>
 
         <div className="profile-sections">
-
-          {/* Customer-Specific Sections */}
-          {isCustomer && (
-            <>
-              {/* My Orders Section */}
-              <div className="section">
-                <h3>My Orders</h3>
-                <ul>
-                  <li><Link to="/profile/bank-upi-details">Bank & UPI details</Link></li>
-                  <li><Link to="/profile/payments-refund">Payments & refund</Link></li>
-                  <li><Link to="/profile/order-history">Order History</Link></li> {/* New: Order History */}
-                  <li><Link to="/profile/upcoming-orders">Upcoming Orders</Link></li> {/* New: Upcoming Orders */}
-                </ul>
-              </div>
-
-              {/* Saved Items (Wishlist/Liked) */}
-              <div className="section">
-                <h3>My Saved Items</h3>
-                <ul>
-                  <li><Link to="/liked">Wishlisted Products</Link></li> {/* Uses existing /liked route */}
-                  {/* You can add more saved item categories if needed */}
-                </ul>
-              </div>
-
-              {/* Activity Section - Customer specific */}
-              <div className="section">
-                <h3>Activity</h3>
-                <ul>
-                  <li><Link to="/profile/change-language">Change Language</Link></li>
-                  <li><Link to="/profile/shared-products">Shared Products</Link></li>
-                  <li><Link to="/profile/notes-and-recommendations">My Notes & Recommendations</Link></li> {/* New: Notes feature */}
-                </ul>
-              </div>
-            </>
+          {/* --- MANAGEMENT SECTION (For Admins & Verified Sellers) --- */}
+          {(isAdmin || (isSeller && userInfo.isVerifiedSeller)) && (
+            <div className="section dashboard-links">
+              <h3>Management</h3>
+              <ul className="btn-list">
+                {isAdmin && (
+                  <li>
+                    <Link to="/admin/dashboard" className="btn-dash admin-btn">
+                       Go to Admin Control Panel
+                    </Link>
+                  </li>
+                )}
+                
+                {(isSeller && userInfo.isVerifiedSeller) && (
+                  <li>
+                    <Link to="/seller/dashboard" className="btn-dash seller-btn">
+                       Go to Seller Dashboard
+                    </Link>
+                  </li>
+                )}
+              </ul>
+            </div>
           )}
 
-          {/* Seller/Admin Specific Sections */}
-          {(isSeller || isAdmin) && (
-            <div className="section seller-section">
-              <h3>Seller Actions</h3>
-              <ul>
-                <li>
-                  <Link to="/seller/dashboard">Seller Dashboard</Link>
-                </li>
-                {/* You can add more seller-specific links here, e.g., */}
-                {/* <li><Link to="/seller/add-product">Add New Product</Link></li> */}
-                {/* <li><Link to="/seller/manage-orders">Manage Orders</Link></li> */}
+          {/* --- CUSTOMER SECTION --- */}
+          {isCustomer && (
+            <div className="section">
+              <h3>Shopping Activity</h3>
+              <ul className="activity-list">
+                <li><Link to="/profile/order-history">Order History</Link></li>
+                <li><Link to="/liked">My Wishlist</Link></li>
+                <li><Link to="/cart">My Cart</Link></li>
               </ul>
             </div>
           )}

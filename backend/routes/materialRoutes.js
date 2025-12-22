@@ -1,34 +1,29 @@
-// backend/routes/materialRoutes.js
 const express = require('express');
 const router = express.Router();
-const asyncHandler = require('express-async-handler');
-const Material = require('../models/Material');
 const { protect } = require('../middleware/authMiddleware');
+const upload = require('../middleware/uploadMiddleware');
+
+// IMPORT ALL FUNCTIONS (Make sure createMaterial is here!)
 const {
-  getMaterials,
-  getMaterialById,
-  likeMaterial,
-  createMaterialReview,
+    getMaterials,
+    getMaterialById,
+    likeMaterial,
+    createMaterialReview,
+    createMaterial 
 } = require('../controllers/materialController');
 
-// --- Material Routes ---
+// 1. Root Routes
+router.route('/')
+    .get(getMaterials)
+    .post(protect, upload.single('image'), createMaterial);
 
-// @route GET /api/materials
-// @desc  Fetch all art materials
-router.route('/').get(getMaterials);
-
-// @route POST /api/materials/:id/reviews
-// @desc  Create a new review for an art material
-// @access Private
+// 2. Review Route
 router.route('/:id/reviews').post(protect, createMaterialReview);
 
-// @route POST /api/materials/:id/like
-// @desc  Toggle like status for a material
-// @access Private
+// 3. Like Route
 router.route('/:id/like').post(protect, likeMaterial);
 
-// @route GET /api/materials/:id
-// @desc  Fetch a single art material by ID
+// 4. Single Item Route
 router.route('/:id').get(getMaterialById);
 
 module.exports = router;

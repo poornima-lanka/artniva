@@ -20,3 +20,89 @@ code {
   display: flex;
   flex-direction: column; /* Allows content inside to stack vertically */
 }
+
+
+/* Admin Dashboard Temporary Styles */
+.container {
+    padding: 40px;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.table th, .table td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+}
+
+.table th {
+    background-color: #f2f2f2;
+}
+
+.btn {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 5px;
+    transition: background-color 0.2s;
+    font-size: 0.9em;
+}
+
+.btn-primary { background-color: #007bff; color: white; }
+.btn-info { background-color: #17a2b8; color: white; }
+.btn-danger { background-color: #dc3545; color: white; }
+.btn-light { 
+    background-color: #f8f9fa; 
+    color: #343a40;
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+}
+
+.btn:hover { opacity: 0.9; }
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 20px;
+    padding: 20px;
+    border: 1px solid #eee;
+    border-radius: 8px;
+}
+
+.form-grid label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-grid input[type="text"], 
+.form-grid input[type="number"], 
+.form-grid textarea, 
+.form-grid select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.form-grid textarea {
+    min-height: 80px;
+}
+
+.btn-submit {
+    grid-column: 1 / 3;
+    background-color: #28a745;
+    color: white;
+    padding: 12px;
+    font-size: 1.1em;
+    margin-top: 10px;
+}

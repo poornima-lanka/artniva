@@ -5,35 +5,40 @@ import { Link } from 'react-router-dom';
 
 const MaterialCard = ({ material, addToCartHandler, likeMaterialHandler }) => {
   const userInfo = JSON.parse(localStorage.getItem('userInfo'));
-  const isMaterialLiked = userInfo && material.likes.some(
+  const isMaterialLiked = userInfo && material.likes?.some(
     (like) => like.toString() === userInfo._id.toString()
   );
 
-  // Share functionality directly in the card
-  const shareHandler = () => {
+  const shareHandler = (e) => {
+    e.preventDefault(); // Link click trigger avvakunda
     if (navigator.share) {
       navigator.share({
         title: material.name,
         text: `Check out this art material: ${material.name}`,
-        url: `${window.location.origin}/materials/${material._id}`, // Dynamic URL
-      })
-      .then(() => console.log('Successful share'))
-      .catch((error) => console.log('Error sharing:', error));
+        url: `${window.location.origin}/materials/${material._id}`,
+      }).catch((error) => console.log('Error sharing:', error));
     } else {
-      // Fallback for browsers that do not support the Web Share API
-      alert('Sharing is not supported on this browser. You can manually copy the link.');
-      // Optionally, you could implement a custom copy-to-clipboard here
+      navigator.clipboard.writeText(`${window.location.origin}/materials/${material._id}`);
+      alert('Link copied to clipboard!');
     }
   };
 
   return (
     <div className="material-card">
       <Link to={`/materials/${material._id}`} className="material-card-link">
-        <img src={material.imageUrl} alt={material.name} className="material-image" />
+        <img 
+          src={material.imageUrl} 
+          alt={material?.name} 
+          className="material-image" 
+          onError={(e) => { 
+            e.target.src = 'https://placehold.co/300x200?text=Image+Not+Found'; 
+          }}
+        />
+  
         <div className="material-details">
           <h3 className="material-name">{material.name}</h3>
-          <p className="material-brand">{material.brand}</p>
-          <p className="material-price">₹{material.price.toFixed(2)}</p>
+          <p className="material-brand">{material.brand || 'Artiva Special'}</p>
+          <p className="material-price">₹{material.price?.toFixed(2) || '0.00'}</p>
         </div>
       </Link>
       <div className="material-actions">
@@ -41,7 +46,7 @@ const MaterialCard = ({ material, addToCartHandler, likeMaterialHandler }) => {
           className={`like-button ${isMaterialLiked ? 'liked' : ''}`}
           onClick={() => likeMaterialHandler(material._id)}
         >
-          <FaHeart />
+          <FaHeart color={isMaterialLiked ? '#e74c3c' : '#bdc3c7'} />
         </button>
         <button className="share-button" onClick={shareHandler}>
           <FaShare />
