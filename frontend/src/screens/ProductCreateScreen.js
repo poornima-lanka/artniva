@@ -46,7 +46,7 @@ function ProductCreateScreen() {
             };
 
             // This is the protected POST route that only admins can hit
-            const { data } = await axios.post('http://localhost:5000/api/products', productData, config);
+            const { data } = await axios.post('https://artniva.onrender.com/api/products', productData, config);
 
             setMessage(`Product "${data.name}" Created Successfully!`);
 

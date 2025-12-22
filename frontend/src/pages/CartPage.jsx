@@ -83,10 +83,10 @@ const CartPage = () => {
       }
       const token = userInfo.token;
 
-      console.log(`Sending DELETE request to: http://localhost:5000/api/cart/${productId}`);
+      console.log(`Sending DELETE request to: https://artniva.onrender.com/api/cart/${productId}`);
       console.log(`DELETE Request Body: ${JSON.stringify({ itemType })}`);
 
-      const response = await fetch(`http://localhost:5000/api/cart/${productId}`, {
+      const response = await fetch(`https://artniva.onrender.com/api/cart/${productId}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
@@ -142,10 +142,10 @@ const CartPage = () => {
           }
           const token = userInfo.token;
 
-          console.log(`Sending PUT request to: http://localhost:5000/api/cart/${productId}`);
+          console.log(`Sending PUT request to: https://artniva.onrender.com/api/cart/${productId}`);
           console.log(`PUT Request Body: ${JSON.stringify({ quantity: newQuantity, itemType })}`);
 
-          const response = await fetch(`http://localhost:5000/api/cart/${productId}`, {
+          const response = await fetch(`https://artniva.onrender.com/api/cart/${productId}`, {
               method: 'PUT',
               headers: {
                   'Content-Type': 'application/json',
@@ -186,7 +186,7 @@ const CartPage = () => {
         const token = userInfo.token;
 
         console.log("Attempting to clear cart (simulated purchase) via DELETE /api/cart");
-        const response = await fetch('http://localhost:5000/api/cart', {
+        const response = await fetch('https://artniva.onrender.com/api/cart', {
             method: 'DELETE', // This endpoint clears the whole cart
             headers: {
                 'Authorization': `Bearer ${token}`

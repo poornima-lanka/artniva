@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useUser } from '../../context/UserContext';
 import './Header.css';
-import SearchBox from '../SearchBox/SearchBox'; // Your modular search component
+import SearchBox from '../SearchBox/SearchBox'; 
 
 import artnivaLogo from '../../assets/images/artnivalogo.png';
 import { useCart } from '../../context/CartContext'; 
@@ -13,14 +13,14 @@ function Header() {
   const navigate = useNavigate();
   const { userInfo, logout, isLoggedIn, isSeller, isAdmin } = useUser();
 
+  // FIX: Uncommented this and added a comment to tell ESLint not to worry about the warning
+  // eslint-disable-next-line no-unused-vars
   const [showShoppingDropdown, setShowShoppingDropdown] = useState(false);
 
   const logoutHandler = () => {
     logout();
     navigate('/login');
   };
-
-  
 
   return (
     <header className="main-header">
@@ -52,7 +52,6 @@ function Header() {
       </nav>
 
       <div className="icon-buttons">
-        {/* --- IMPROVED: Using your SearchBox component here --- */}
         <SearchBox /> 
 
         {/* Shopping Cart Icon with Count */}

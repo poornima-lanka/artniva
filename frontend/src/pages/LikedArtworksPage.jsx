@@ -25,12 +25,12 @@ const LikedArtworksPage = () => {
           setLoading(true);
           
           // Fetch Liked Paintings (Products)
-          const productRes = await fetch('http://localhost:5000/api/products/liked', {
+          const productRes = await fetch('https://artniva.onrender.com/api/products/liked', {
             headers: { 'Authorization': `Bearer ${userInfo.token}` },
           });
           
           // Fetch Liked Materials (Separate API call)
-          const materialRes = await fetch('http://localhost:5000/api/materials/liked', {
+          const materialRes = await fetch('https://artniva.onrender.com/api/materials/liked', {
             headers: { 'Authorization': `Bearer ${userInfo.token}` },
           });
 
@@ -76,7 +76,7 @@ const LikedArtworksPage = () => {
                 <img 
                   src={
                     item.image 
-                      ? `http://localhost:5000/uploads/${item.image.split(/[\\/]/).pop()}` 
+                      ? `https://artniva.onrender.com/uploads/${item.image.split(/[\\/]/).pop()}` 
                       : item.imageUrl
                   } 
                   alt={item.name} 

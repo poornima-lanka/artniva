@@ -24,7 +24,7 @@ function ProductListScreen() {
         const fetchProducts = async () => {
             try {
                 // Note: Even though this is an admin screen, the GET /api/products route is PUBLIC
-                const { data } = await axios.get('http://localhost:5000/api/products');
+                const { data } = await axios.get('https://artniva.onrender.com/api/products');
                 setProducts(data);
                 setLoading(false);
             } catch (err) {
@@ -52,7 +52,7 @@ function ProductListScreen() {
                 };
 
                 // This is the protected DELETE route that only admins can hit
-                await axios.delete(`http://localhost:5000/api/products/${productId}`, config);
+                await axios.delete(`https://artniva.onrender.com/api/products/${productId}`, config);
 
                 // Refetch products to update the list
                 setProducts(products.filter(p => p._id !== productId));

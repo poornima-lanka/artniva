@@ -35,7 +35,7 @@ export const CartProvider = ({ children }) => {
       }
       const token = userInfo.token;
 
-      const response = await fetch('http://localhost:5000/api/cart', {
+      const response = await fetch('https://artniva.onrender.com/api/cart', {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`

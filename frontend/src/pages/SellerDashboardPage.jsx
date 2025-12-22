@@ -24,8 +24,8 @@ function SellerDashboardPage() {
         try {
             setLoading(true);
             const [productsRes, materialsRes] = await Promise.all([
-                axios.get('http://localhost:5000/api/products'),
-                axios.get('http://localhost:5000/api/materials')
+                axios.get('https://artniva.onrender.com/api/products'),
+                axios.get('https://artniva.onrender.com/api/materials')
             ]);
 
             // Combine and filter by seller ID
@@ -57,9 +57,9 @@ function SellerDashboardPage() {
 
         // Backend Files (Port 5000)
         if (cleanPath.includes('uploads/')) {
-            return `http://localhost:5000${cleanPath.startsWith('/') ? cleanPath : `/${cleanPath}`}`;
+            return `https://artniva.onrender.com${cleanPath.startsWith('/') ? cleanPath : `/${cleanPath}`}`;
         }
-        return `http://localhost:5000/uploads/${fileName}`;
+        return `https://artniva.onrender.com/uploads/${fileName}`;
     };
 
     const handleInputChange = (e) => {
@@ -88,10 +88,10 @@ function SellerDashboardPage() {
             let endpoint = '';
             if (activeTab === 'add-material') {
                 dataToSend.append('category', 'Material'); // Force Category for Materials
-                endpoint = 'http://localhost:5000/api/materials';
+                endpoint = 'https://artniva.onrender.com/api/materials';
             } else {
                 dataToSend.append('category', 'Painting'); // Default for Products
-                endpoint = 'http://localhost:5000/api/products';
+                endpoint = 'https://artniva.onrender.com/api/products';
             }
 
             const uploadConfig = {

@@ -4,7 +4,7 @@ import { useCart } from '../context/CartContext';
 import { Link, useLocation } from 'react-router-dom';
 import { FaHeart, FaShare } from 'react-icons/fa';
 
-const BACKEND_URL = "http://localhost:5000";
+const BACKEND_URL = "https://artniva.onrender.com";
 
 function AllArtworksPage() {
   const [artworks, setArtworks] = useState([]);

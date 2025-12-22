@@ -28,7 +28,7 @@ function ProductDetailsPage() {
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch(`http://localhost:5000/api/products/${id}`);
+      const response = await fetch(`https://artniva.onrender.com/api/products/${id}`);
 
       if (!response.ok) {
         const errorText = await response.text();
@@ -83,7 +83,7 @@ function ProductDetailsPage() {
     }
 
     try {
-      const response = await fetch(`http://localhost:5000/api/products/${id}/reviews`, {
+      const response = await fetch(`https://artniva.onrender.com/api/products/${id}/reviews`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -127,7 +127,7 @@ function ProductDetailsPage() {
 
       console.log('Sending item to cart from details page:', itemData);
 
-      const response = await fetch('http://localhost:5000/api/cart', {
+      const response = await fetch('https://artniva.onrender.com/api/cart', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -174,7 +174,7 @@ function ProductDetailsPage() {
     }
 
     try {
-      const response = await fetch(`http://localhost:5000/api/products/${id}/like`, { // <--- THIS IS THE API CALL
+      const response = await fetch(`https://artniva.onrender.com/api/products/${id}/like`, { // <--- THIS IS THE API CALL
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -259,7 +259,7 @@ function ProductDetailsPage() {
       <div className="product-details-content">
         <div className="product-image-section">
           <img src={
-              product.image ? `http://localhost:5000/uploads/${product.image.split(/[\\/]/).pop()}` : product.imageUrl
+              product.image ? `https://artniva.onrender.com/uploads/${product.image.split(/[\\/]/).pop()}` : product.imageUrl
                    } 
                     alt={product.name} 
                    className="product-detail-image" 

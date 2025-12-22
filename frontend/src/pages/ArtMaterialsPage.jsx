@@ -4,7 +4,7 @@ import BannerCarousel from '../components/BannerCarousel/BannerCarousel';
 import './ArtMaterialsPage.css';
 import { useCart } from '../context/CartContext';
 
-const BACKEND_URL = "http://localhost:5000";
+const BACKEND_URL = "https://artniva.onrender.com";
 
 function ArtMaterialsPage() {
   const [materials, setMaterials] = useState([]);

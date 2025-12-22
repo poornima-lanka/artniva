@@ -18,7 +18,7 @@ function SellerDashboardPage() {
         return savedUser ? JSON.parse(savedUser) : null;
     }, []);
 
-    const BACKEND_URL = "http://localhost:5000";
+    const BACKEND_URL = "https://artniva.onrender.com";
 
     // 1. IMAGE RESOLVER: Anni types handle chesthundhi
     const getImageUrl = (item) => {

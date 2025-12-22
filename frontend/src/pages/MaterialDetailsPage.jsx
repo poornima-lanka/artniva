@@ -29,7 +29,7 @@ function MaterialDetailsPage() {
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch(`http://localhost:5000/api/materials/${id}`);
+      const response = await fetch(`https://artniva.onrender.com/api/materials/${id}`);
       if (!response.ok) {
         const errorText = await response.text();
         throw new Error(`HTTP error! Status: ${response.status} - ${errorText}`);
@@ -69,7 +69,7 @@ const handleLikeClick = async () => {
   }
 
   try {
-    const response = await fetch(`http://localhost:5000/api/materials/${id}/like`, {
+    const response = await fetch(`https://artniva.onrender.com/api/materials/${id}/like`, {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${userInfo.token}`,
@@ -111,7 +111,7 @@ const handleLikeClick = async () => {
         quantity: 1,
         itemType: 'Material'
       };
-      const response = await fetch('http://localhost:5000/api/cart', {
+      const response = await fetch('https://artniva.onrender.com/api/cart', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -141,7 +141,7 @@ const handleLikeClick = async () => {
       return;
     }
     try {
-      const response = await fetch(`http://localhost:5000/api/materials/${id}/reviews`, {
+      const response = await fetch(`https://artniva.onrender.com/api/materials/${id}/reviews`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -185,7 +185,7 @@ const handleLikeClick = async () => {
          <img 
     src={
       material.image 
-        ? `http://localhost:5000/uploads/${material.image.split(/[\\/]/).pop()}` 
+        ? `https://artniva.onrender.com/uploads/${material.image.split(/[\\/]/).pop()}` 
         : material.imageUrl
     } 
     alt={material.name} 

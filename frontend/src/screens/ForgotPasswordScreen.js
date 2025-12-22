@@ -20,7 +20,7 @@ const ForgotPasswordScreen = () => {
     try {
       // The endpoint is /api/users/forgotpassword
       const { data } = await axios.post(
-         'http://localhost:5000/api/users/forgotpassword',
+         'https://artniva.onrender.com/api/users/forgotpassword',
         { email }
       );
 

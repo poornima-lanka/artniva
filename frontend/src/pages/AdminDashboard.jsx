@@ -23,13 +23,13 @@ function AdminDashboard() {
         try {
             setLoading(true);
             // Fetch Users & Stats (Admin Only Routes)
-            const { data: users } = await axios.get('http://localhost:5000/api/users', config);
-            const { data: statsData } = await axios.get('http://localhost:5000/api/users/stats', config);
+            const { data: users } = await axios.get('https://artniva.onrender.com/api/users', config);
+            const { data: statsData } = await axios.get('https://artniva.onrender.com/api/users/stats', config);
             
             // Fetch Inventory (Public Routes - assuming these exist)
             // Change these URLs if your backend routes are named differently
-            const { data: paintingsData } = await axios.get('http://localhost:5000/api/products');
-            const { data: materialsData } = await axios.get('http://localhost:5000/api/materials');
+            const { data: paintingsData } = await axios.get('https://artniva.onrender.com/api/products');
+            const { data: materialsData } = await axios.get('https://artniva.onrender.com/api/materials');
 
             setSellers(users.filter(u => u.role === 'seller'));
             setStats(statsData);
@@ -51,8 +51,8 @@ function AdminDashboard() {
             try {
                 // Determine the correct API endpoint based on type
                 const endpoint = type === 'product' 
-                    ? `http://localhost:5000/api/products/${id}`
-                    : `http://localhost:5000/api/materials/${id}`;
+                    ? `https://artniva.onrender.com/api/products/${id}`
+                    : `https://artniva.onrender.com/api/materials/${id}`;
 
                 await axios.delete(endpoint, config);
                 // Reload dashboard to show updated list
@@ -69,7 +69,7 @@ function AdminDashboard() {
     const handleVerify = async (id) => {
         if (window.confirm("Approve this artist to sell on ArtNiva?")) {
             try {
-                await axios.put(`http://localhost:5000/api/users/${id}/verify`, {}, config);
+                await axios.put(`https://artniva.onrender.com/api/users/${id}/verify`, {}, config);
                 loadDashboard();
             } catch (error) {
                 alert("Verification failed");

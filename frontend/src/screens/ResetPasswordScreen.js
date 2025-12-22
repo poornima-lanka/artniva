@@ -31,7 +31,7 @@ const ResetPasswordScreen = () => {
     try {
       // API call to your backend (PUT request with token in URL)
       const { data } = await axios.put(
-        `http://localhost:5000/api/users/resetpassword/${token}`,
+        `https://artniva.onrender.com/api/users/resetpassword/${token}`,
         { password, confirmPassword }
       );
 
