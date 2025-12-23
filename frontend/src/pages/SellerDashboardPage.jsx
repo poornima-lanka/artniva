@@ -1,10 +1,12 @@
-import React, { useEffect, useState, useCallback, useMemo } from 'react';
+// frontend/src/pages/SellerDashboardPage.jsx
+import React, { useEffect, useState, useCallback } from 'react'; // Removed useMemo
 import axios from 'axios';
 import './SellerDashboardPage.css';
+import { useUser } from '../context/UserContext';
 
 function SellerDashboardPage() {
     const [activeTab, setActiveTab] = useState('overview');
-    const [inventoryItems, setInventoryItems] = useState([]); // Products + Materials rendu ikkada untayi
+    const [inventoryItems, setInventoryItems] = useState([]); 
     const [loading, setLoading] = useState(true);
     const [isPublishing, setIsPublishing] = useState(false);
     
@@ -13,22 +15,18 @@ function SellerDashboardPage() {
     });
     const [imageFile, setImageFile] = useState(null);
 
-    const userInfo = useMemo(() => {
-        const savedUser = localStorage.getItem('userInfo');
-        return savedUser ? JSON.parse(savedUser) : null;
-    }, []);
+    const { userInfo } = useUser();
+    const BACKEND_URL = "https://artniva.onrender.com";
 
-    // FIX 1: Fetch both Products and Materials for Inventory
     const loadSellerData = useCallback(async () => {
         if (!userInfo?._id) return;
         try {
             setLoading(true);
             const [productsRes, materialsRes] = await Promise.all([
-                axios.get('https://artniva.onrender.com/api/products'),
-                axios.get('https://artniva.onrender.com/api/materials')
+                axios.get(`${BACKEND_URL}/api/products`),
+                axios.get(`${BACKEND_URL}/api/materials`)
             ]);
 
-            // Combine and filter by seller ID
             const myProducts = productsRes.data.filter(p => p.seller === userInfo._id);
             const myMaterials = materialsRes.data.filter(m => m.seller === userInfo._id);
             
@@ -38,28 +36,25 @@ function SellerDashboardPage() {
         } finally {
             setLoading(false);
         }
-    }, [userInfo?._id]);
+    }, [userInfo?._id, BACKEND_URL]); // Added BACKEND_URL to dependency
 
     useEffect(() => { 
         if (userInfo?._id) { loadSellerData(); }
     }, [loadSellerData, userInfo?._id]);
 
-    // IMAGE RESOLVER: Same logic used in ArtMaterialsPage
     const getImageUrl = (item) => {
         let path = item?.image || item?.imageUrl || "";
         if (!path) return "https://placehold.co/300x200?text=No+Image";
         const cleanPath = path.replace(/\\/g, '/');
         const fileName = cleanPath.split('/').pop();
 
-        // Local Files (Port 3000)
         const localImages = ['abstract_dreams.jpg', 'acrylic_paint.jpg', 'acrylic_raining.jpg', 'bird_watercolor.jpg', 'canvas_art.jpg', 'snow_watercolor.jpg', 'waterworld.png'];
         if (localImages.includes(fileName)) return `/images/${fileName}`;
 
-        // Backend Files (Port 5000)
         if (cleanPath.includes('uploads/')) {
-            return `https://artniva.onrender.com${cleanPath.startsWith('/') ? cleanPath : `/${cleanPath}`}`;
+            return `${BACKEND_URL}${cleanPath.startsWith('/') ? cleanPath : `/${cleanPath}`}`;
         }
-        return `https://artniva.onrender.com/uploads/${fileName}`;
+        return `${BACKEND_URL}/uploads/${fileName}`;
     };
 
     const handleInputChange = (e) => {
@@ -84,14 +79,13 @@ function SellerDashboardPage() {
             dataToSend.append('image', imageFile);
             dataToSend.append('seller', userInfo._id);
 
-            // FIX 2: Dynamic Category and Endpoint
             let endpoint = '';
             if (activeTab === 'add-material') {
-                dataToSend.append('category', 'Material'); // Force Category for Materials
-                endpoint = 'https://artniva.onrender.com/api/materials';
+                dataToSend.append('category', 'Material');
+                endpoint = `${BACKEND_URL}/api/materials`;
             } else {
-                dataToSend.append('category', 'Painting'); // Default for Products
-                endpoint = 'https://artniva.onrender.com/api/products';
+                dataToSend.append('category', 'Painting');
+                endpoint = `${BACKEND_URL}/api/products`;
             }
 
             const uploadConfig = {
@@ -112,7 +106,7 @@ function SellerDashboardPage() {
         } catch (error) {
             setIsPublishing(false);
             console.error(error);
-            alert("Upload failed. Make sure Backend is running and routes are correct.");
+            alert("Upload failed. Check console.");
         }
     };
 
@@ -157,7 +151,6 @@ function SellerDashboardPage() {
                             ) : (
                                 inventoryItems.map(item => (
                                     <div key={item._id} className="glass-card product-admin-card">
-                                        {/* FIX 3: Using Universal Image Logic */}
                                         <img src={getImageUrl(item)} alt={item.name} />
                                         <div className="p-details">
                                             <h4>{item.name}</h4>

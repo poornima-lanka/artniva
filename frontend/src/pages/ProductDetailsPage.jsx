@@ -258,15 +258,18 @@ function ProductDetailsPage() {
       )}
       <div className="product-details-content">
         <div className="product-image-section">
+         
           <img src={
-              product.image ? `https://artniva.onrender.com/uploads/${product.image.split(/[\\/]/).pop()}` : product.imageUrl
-                   } 
-                    alt={product.name} 
-                   className="product-detail-image" 
-                   onError={(e) => {
-                     // Image rakapothe placeholder chupisthundi
-                      e.target.src = "https://via.placeholder.com/400?text=Painting+Not+Found";
-                      }}
+                      product.image 
+                         ? `https://artniva.onrender.com/uploads/${product.image.split(/[\\/]/).pop()}` 
+                            :(product.imageUrl || "https://via.placeholder.com/400?text=No+Image+URL")
+                             } 
+                             alt={product.name} 
+                                className="product-detail-image" 
+                                onError={(e) => {
+                                 e.target.onerror = null; 
+                                   e.target.src = "https://via.placeholder.com/400?text=Image+File+Missing+on+Server";
+                                      }}
            />
         </div>
         <div className="product-info-section">
